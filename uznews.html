@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UZNEWS — Eng so‘nggi yangiliklar</title>
+<style>
+:root{--bg:#f4f6fb;--panel:#fff;--text:#172033;--muted:#687386;--line:#e7eaf1;--brand:#2457e6;--soft:#edf2ff;--shadow:0 12px 35px #18264a12}
+body.dark{--bg:#101522;--panel:#192234;--text:#f3f6ff;--muted:#aab4c7;--line:#2b374d;--brand:#83a2ff;--soft:#253451;--shadow:0 12px 35px #0004}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font:15px/1.55 Arial,sans-serif;transition:.2s}
+button,input,select,textarea{font:inherit}button{cursor:pointer}
+.wrap{max-width:1160px;margin:auto;padding:0 22px}
+header{background:var(--panel);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:5}
+.top{height:76px;display:flex;align-items:center;justify-content:space-between;gap:20px}
+.logo{font-size:27px;font-weight:900;letter-spacing:-1px;color:var(--brand)}.logo span{color:var(--text)}
+nav{display:flex;gap:20px;align-items:center}nav a{color:var(--muted);text-decoration:none;font-weight:700}nav a:hover{color:var(--brand)}
+.actions{display:flex;gap:9px;align-items:center}.iconbtn,.btn{border:1px solid var(--line);background:var(--panel);color:var(--text);border-radius:11px;padding:10px 13px}.btn.primary{background:var(--brand);color:white;border-color:var(--brand);font-weight:700}
+.hero{padding:32px 0 22px}.eyebrow{color:var(--brand);font-weight:800;text-transform:uppercase;font-size:12px;letter-spacing:1.3px}
+h1{font-size:clamp(30px,5vw,46px);line-height:1.1;margin:8px 0}.sub{color:var(--muted);margin:0}
+.toolbar{display:flex;gap:12px;align-items:center;justify-content:space-between;margin:18px 0;flex-wrap:wrap}
+.search{flex:1;min-width:220px;position:relative}.search input{width:100%;padding:13px 15px 13px 42px;border:1px solid var(--line);border-radius:12px;background:var(--panel);color:var(--text);outline:none}.search input:focus{border-color:var(--brand)}.search:before{content:"⌕";position:absolute;left:15px;top:6px;font-size:25px;color:var(--muted)}
+.categories{display:flex;gap:8px;overflow:auto;padding:3px 0 12px}.chip{white-space:nowrap;border:1px solid var(--line);background:var(--panel);color:var(--muted);padding:8px 14px;border-radius:30px}.chip.active{background:var(--brand);border-color:var(--brand);color:#fff}
+.layout{display:grid;grid-template-columns:minmax(0,1fr) 285px;gap:24px;padding-bottom:55px}
+.sectionhead{display:flex;justify-content:space-between;align-items:center;margin:8px 0 16px}.sectionhead h2{font-size:22px;margin:0}.muted{color:var(--muted)}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:17px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:16px;overflow:hidden;box-shadow:var(--shadow);display:flex;flex-direction:column;min-width:0}
+.cover{height:165px;background:linear-gradient(135deg,#dbe7ff,#9db7fa);display:grid;place-items:center;font-size:55px;position:relative}
+.cover span{filter:drop-shadow(0 6px 8px #0002)}.cardbody{padding:16px;display:flex;flex-direction:column;flex:1}
+.meta{font-size:12px;color:var(--muted);display:flex;gap:9px;align-items:center;flex-wrap:wrap}.tag{color:var(--brand);font-weight:800}
+.card h3{font-size:18px;line-height:1.3;margin:9px 0}.card p{color:var(--muted);margin:0 0 14px;font-size:14px}
+.cardfoot{display:flex;justify-content:space-between;align-items:center;margin-top:auto;gap:8px}.read{border:0;background:var(--soft);color:var(--brand);font-weight:800;border-radius:9px;padding:9px 12px}.save{border:1px solid var(--line);background:transparent;color:var(--muted);border-radius:9px;padding:8px 10px}
+aside .panel{background:var(--panel);border:1px solid var(--line);border-radius:15px;padding:17px;margin-bottom:16px}.panel h3{margin:0 0 13px}.trend{padding:11px 0;border-top:1px solid var(--line)}.trend:first-of-type{border:0}.trend b{display:block}.trend small{color:var(--muted)}
+.newsletter{background:var(--soft)!important}.newsletter input{width:100%;padding:11px;border:1px solid var(--line);border-radius:9px;background:var(--panel);color:var(--text);margin:8px 0}
+footer{border-top:1px solid var(--line);padding:25px 0;color:var(--muted);text-align:center}
+.modalback{position:fixed;inset:0;background:#08102099;z-index:10;display:none;align-items:center;justify-content:center;padding:18px}.modalback.show{display:flex}.modal{width:min(650px,100%);max-height:90vh;overflow:auto;background:var(--panel);border-radius:18px;padding:24px;box-shadow:var(--shadow)}.modal h2{margin-top:0}.modal input,.modal select,.modal textarea{width:100%;padding:12px;border:1px solid var(--line);border-radius:10px;background:var(--bg);color:var(--text);margin:6px 0 13px}.modal textarea{min-height:110px;resize:vertical}.modalactions{display:flex;justify-content:flex-end;gap:9px}.empty{grid-column:1/-1;padding:40px;text-align:center;background:var(--panel);border:1px dashed var(--line);border-radius:14px;color:var(--muted)}
+.toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:#172033;color:#fff;padding:11px 17px;border-radius:10px;display:none;z-index:20}
+@media(max-width:850px){nav{display:none}.layout{grid-template-columns:1fr}aside{display:grid;grid-template-columns:1fr 1fr;gap:14px}aside .panel{margin:0}}
+@media(max-width:560px){.wrap{padding:0 14px}.top{height:65px}.logo{font-size:23px}.grid{grid-template-columns:1fr}.cover{height:180px}aside{grid-template-columns:1fr}.hero{padding-top:25px}.actions .btn{padding:9px}}
+</style>
+</head>
+<body>
+<header><div class="wrap top">
+  <div class="logo">UZ<span>NEWS</span></div>
+  <nav><a href="#" onclick="showAll();return false">Bosh sahifa</a><a href="#news">Yangiliklar</a><a href="#" onclick="showSaved();return false">Saqlanganlar</a></nav>
+  <div class="actions"><button class="iconbtn" id="themeBtn" title="Rang rejimini almashtirish">🌙</button><button class="btn primary" id="addBtn">＋ Yangilik qo‘shish</button></div>
+</div></header>
+<main class="wrap">
+<section class="hero"><div class="eyebrow">O‘zbekiston va dunyo</div><h1>Kun yangiliklaridan<br>xabardor bo‘ling.</h1><p class="sub">Muhim xabarlar, tahlillar va qiziqarli voqealar — barchasi bir joyda.</p></section>
+<div class="toolbar"><div class="search"><input id="search" placeholder="Yangilik qidirish..." aria-label="Yangilik qidirish"></div><span class="muted" id="count"></span></div>
+<div class="categories" id="categories"></div>
+<div class="layout" id="news">
+<section><div class="sectionhead"><h2 id="listTitle">So‘nggi yangiliklar</h2><span class="muted">UZNEWS</span></div><div class="grid" id="cards"></div></section>
+<aside>
+<div class="panel"><h3>🔥 Ommabop mavzular</h3><div class="trend"><b>Texnologiya olami</b><small>Innovatsiyalar va sun’iy intellekt</small></div><div class="trend"><b>Sport yangiliklari</b><small>Futbol va boshqa sport turlari</small></div><div class="trend"><b>O‘zbekiston</b><small>Hududlardagi muhim voqealar</small></div></div>
+<div class="panel newsletter"><h3>📩 Yangiliklardan xabardor bo‘ling</h3><p class="muted">Email manzilingizni kiriting. Bu demo obuna formasi.</p><input id="email" type="email" placeholder="email@example.com"><button class="btn primary" style="width:100%" id="subscribe">Obuna bo‘lish</button></div>
+<div class="panel"><h3>Sayt haqida</h3><p class="muted">UZNEWS — yangiliklarni qulay o‘qish uchun tayyorlangan namuna sayt. Maqolalarni o‘zingiz qo‘shishingiz va tahrirlashingiz mumkin.</p></div>
+</aside>
+</div>
+</main>
+<footer><div class="wrap">© 2026 UZNEWS. Barcha huquqlar himoyalangan. <br><small>Namuna loyiha — maqolalar demo kontent hisoblanadi.</small></div></footer>
+<div class="modalback" id="modalBack"><div class="modal">
+<h2 id="modalTitle">Yangilik qo‘shish</h2>
+<form id="newsForm">
+<label>Sarlavha</label><input id="title" required maxlength="120" placeholder="Yangilik sarlavhasi">
+<label>Kategoriya</label><select id="category"><option>O‘zbekiston</option><option>Dunyo</option><option>Sport</option><option>Texnologiya</option><option>Biznes</option><option>Madaniyat</option></select>
+<label>Qisqa tavsif</label><textarea id="description" required maxlength="350" placeholder="Yangilik haqida qisqacha..."></textarea>
+<label>To‘liq maqola</label><textarea id="content" required placeholder="Maqola matnini yozing..."></textarea>
+<label>Rasm emoji (masalan ⚽, 🌍, 💻)</label><input id="emoji" maxlength="4" value="📰">
+<div class="modalactions"><button type="button" class="btn" id="cancelBtn">Bekor qilish</button><button class="btn primary" type="submit">Saqlash</button></div>
+</form></div></div>
+<div class="toast" id="toast"></div>
+<script>
+const initialNews=[
+{id:1,title:"O‘zbekistonda yangi texnologik loyihalar rivojlanmoqda",category:"Texnologiya",description:"Yosh mutaxassislar va startaplar yangi raqamli yechimlar ustida ishlamoqda.",content:"O‘zbekistonda texnologiya sohasi izchil rivojlanmoqda. Yosh dasturchilar, muhandislar va startap jamoalari kundalik hayotni yengillashtiradigan yangi raqamli mahsulotlar yaratmoqda. Ushbu maqola demo matn sifatida joylashtirilgan.",emoji:"💻",date:"13-noyabr 2026"},
+{id:2,title:"Futbol muxlislari uchun qiziqarli uchrashuvlar",category:"Sport",description:"Yaqin kunlarda futbol olamida bir nechta muhim uchrashuvlar bo‘lib o‘tadi.",content:"Futbol muxlislari sevimli jamoalarining o‘yinlarini katta qiziqish bilan kutmoqda. Jamoalar tayyorgarlikni davom ettirmoqda. Bu sahifadagi xabar namuna kontentdir; real vaqt natijalari emas.",emoji:"⚽",date:"13-noyabr 2026"},
+{id:3,title:"Toshkentda shahar infratuzilmasi yangilanmoqda",category:"O‘zbekiston",description:"Shahar qulayligini oshirishga qaratilgan loyihalar davom etmoqda.",content:"Shahar infratuzilmasini rivojlantirish aholiga qulay muhit yaratishda muhim ahamiyatga ega. Yo‘llar, jamoat joylari va xizmatlarni yaxshilash bo‘yicha turli tashabbuslar amalga oshirilmoqda. Bu demo maqola.",emoji:"🏙️",date:"12-noyabr 2026"},
+{id:4,title:"Dunyo olimlari yangi ilmiy tadqiqotlarni taqdim etdi",category:"Dunyo",description:"Ilm-fan va innovatsiyalar insoniyat oldidagi muammolarga yechim izlamoqda.",content:"Ilmiy izlanishlar yangi bilimlar va texnologiyalar paydo bo‘lishiga yordam beradi. Turli mamlakatlardagi tadqiqotchilar hamkorlikda yangi g‘oyalarni o‘rganmoqda. Bu matn sayt ko‘rinishini namoyish qilish uchun yozilgan.",emoji:"🌍",date:"12-noyabr 2026"},
+{id:5,title:"Kichik biznes uchun yangi imkoniyatlar",category:"Biznes",description:"Tadbirkorlar raqamli xizmatlar yordamida mijozlarga yanada yaqinlashmoqda.",content:"Kichik biznes iqtisodiyotning muhim qismidir. Raqamli vositalar tadbirkorlarga mahsulotlarini tanitish, buyurtmalarni boshqarish va mijozlar bilan muloqot qilishda yordam beradi. Bu demo maqola.",emoji:"📈",date:"11-noyabr 2026"},
+{id:6,title:"Yoshlar ijodiy loyihalarda faol qatnashmoqda",category:"Madaniyat",description:"Ijodiy tashabbuslar yangi iste’dodlarni kashf etishga xizmat qilmoqda.",content:"Yoshlarning ijodiy loyihalarda ishtiroki jamiyat madaniy hayotini boyitadi. Tanlovlar, ko‘rgazmalar va festivallar yangi iste’dodlarni namoyon etish uchun imkoniyat yaratadi. Bu demo matn.",emoji:"🎨",date:"10-noyabr 2026"}
+];
+let news=JSON.parse(localStorage.getItem("uznews_items")||"null")||initialNews;
+let saved=JSON.parse(localStorage.getItem("uznews_saved")||"[]");
+let activeCategory="Barchasi",savedOnly=false,editingId=null;
+const $=id=>document.getElementById(id);
+function persist(){localStorage.setItem("uznews_items",JSON.stringify(news));localStorage.setItem("uznews_saved",JSON.stringify(saved))}
+function toast(msg){$("toast").textContent=msg;$("toast").style.display="block";setTimeout(()=>$("toast").style.display="none",2300)}
+function renderCategories(){let cats=["Barchasi","O‘zbekiston","Dunyo","Sport","Texnologiya","Biznes","Madaniyat"];$("categories").innerHTML=cats.map(c=>`<button class="chip ${activeCategory===c?"active":""}" onclick="chooseCategory('${c}')">${c}</button>`).join("")}
+function chooseCategory(c){activeCategory=c;savedOnly=false;$("listTitle").textContent="So‘nggi yangiliklar";render()}
+function showAll(){activeCategory="Barchasi";savedOnly=false;$("search").value="";$("listTitle").textContent="So‘nggi yangiliklar";render()}
+function showSaved(){savedOnly=true;activeCategory="Barchasi";$("listTitle").textContent="❤️ Saqlangan yangiliklar";render()}
+function render(){
+ renderCategories();let q=$("search").value.toLowerCase().trim();
+ let items=news.filter(n=>(activeCategory==="Barchasi"||n.category===activeCategory)&&(!savedOnly||saved.includes(n.id))&&(`${n.title} ${n.description} ${n.category}`).toLowerCase().includes(q));
+ $("count").textContent=items.length+" ta yangilik";
+ $("cards").innerHTML=items.length?items.map(n=>`<article class="card"><div class="cover"><span>${escapeHtml(n.emoji||"📰")}</span></div><div class="cardbody"><div class="meta"><span class="tag">${escapeHtml(n.category)}</span><span>•</span><span>${escapeHtml(n.date||"Bugun")}</span></div><h3>${escapeHtml(n.title)}</h3><p>${escapeHtml(n.description)}</p><div class="cardfoot"><button class="read" onclick="readNews(${n.id})">Batafsil →</button><button class="save" onclick="toggleSave(${n.id})">${saved.includes(n.id)?"❤️ Saqlangan":"♡ Saqlash"}</button></div></div></article>`).join(""):`<div class="empty">🔎 Hech narsa topilmadi.<br>Qidiruv so‘zini yoki kategoriyani o‘zgartirib ko‘ring.</div>`;
+}
+function escapeHtml(s){return String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
+function readNews(id){let n=news.find(x=>x.id===id);if(!n)return; $("modalTitle").textContent=n.title;$("newsForm").style.display="none";let old=$("articleText");if(old)old.remove();let box=document.createElement("div");box.id="articleText";box.innerHTML=`<div class="meta"><span class="tag">${escapeHtml(n.category)}</span> • ${escapeHtml(n.date||"Bugun")}</div><div style="font-size:48px;margin:15px 0">${escapeHtml(n.emoji||"📰")}</div><p style="white-space:pre-wrap;line-height:1.8">${escapeHtml(n.content||n.description)}</p><div class="modalactions"><button class="btn" onclick="closeModal()">Yopish</button></div>`;$("newsForm").after(box);$("modalBack").classList.add("show")}
+function toggleSave(id){saved=saved.includes(id)?saved.filter(x=>x!==id):[...saved,id];persist();render();toast(saved.includes(id)?"Sevimlilarga saqlandi":"Saqlanganlardan olib tashlandi")}
+function openAdd(){editingId=null;$("modalTitle").textContent="Yangilik qo‘shish";$("newsForm").reset();$("emoji").value="📰";$("newsForm").style.display="block";let old=$("articleText");if(old)old.remove();$("modalBack").classList.add("show")}
+function closeModal(){$("modalBack").classList.remove("show")}
+$("addBtn").onclick=openAdd;$("cancelBtn").onclick=closeModal;
+$("modalBack").addEventListener("click",e=>{if(e.target===$("modalBack"))closeModal()});
+$("newsForm").addEventListener("submit",e=>{e.preventDefault();let item={id:Date.now(),title:$("title").value.trim(),category:$("category").value,description:$("description").value.trim(),content:$("content").value.trim(),emoji:$("emoji").value.trim()||"📰",date:new Date().toLocaleDateString("uz-UZ")};news.unshift(item);persist();closeModal();showAll();toast("Yangilik muvaffaqiyatli qo‘shildi!")});
+$("search").addEventListener("input",render);
+$("themeBtn").onclick=()=>{document.body.classList.toggle("dark");let dark=document.body.classList.contains("dark");localStorage.setItem("uznews_dark",dark?"1":"0");$("themeBtn").textContent=dark?"☀️":"🌙"};
+if(localStorage.getItem("uznews_dark")==="1"){document.body.classList.add("dark");$("themeBtn").textContent="☀️"}
+$("subscribe").onclick=()=>{let email=$("email").value.trim();if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){toast("Iltimos, to‘g‘ri email kiriting.");return}toast("Rahmat! Demo obunangiz qabul qilindi.");$("email").value=""};
+render();
+</script>
+</body></html>
